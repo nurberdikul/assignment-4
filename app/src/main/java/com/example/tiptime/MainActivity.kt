@@ -60,7 +60,8 @@ fun TipTimeScreen(modifier: Modifier = Modifier) {
     var tipInput by rememberSaveable { mutableStateOf("15") }
 
     val amount = amountInput.toDoubleOrNull() ?: 0.0
-    val tip = calculateTip(amount)
+    val tipPercent = tipInput.toDoubleOrNull() ?: 0.0
+    val tip = calculateTip(amount, tipPercent)
 
     Column(
         modifier = modifier
