@@ -40,8 +40,6 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.tiptime.ui.theme.TipTimeTheme
-import java.text.NumberFormat
-import kotlin.math.ceil
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,20 +56,6 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
-}
-
-fun calculateTip(
-    amount: Double,
-    tipPercent: Double = 15.0,
-    roundUp: Boolean = false
-): String {
-    var tip = tipPercent / 100 * amount
-
-    if (roundUp) {
-        tip = ceil(tip)
-    }
-
-    return NumberFormat.getCurrencyInstance().format(tip)
 }
 
 @Composable
