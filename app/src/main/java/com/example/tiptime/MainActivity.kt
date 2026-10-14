@@ -54,6 +54,9 @@ fun calculateTip(
 fun TipTimeScreen(modifier: Modifier = Modifier) {
     var amountInput by remember { mutableStateOf("") }
 
+    val amount = amountInput.toDoubleOrNull() ?: 0.0
+    val tip = calculateTip(amount)
+
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -73,6 +76,10 @@ fun TipTimeScreen(modifier: Modifier = Modifier) {
                 keyboardType = KeyboardType.Number
             ),
             modifier = Modifier.fillMaxWidth()
+        )
+
+        Text(
+            text = stringResource(R.string.tip_amount, tip)
         )
     }
 }
