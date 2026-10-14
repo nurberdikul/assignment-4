@@ -24,3 +24,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "TipTime"
 include(":app")
+include(":artspace")
