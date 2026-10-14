@@ -1,6 +1,15 @@
 <resources>
     <string name="app_name">Art Space</string>
-    <string name="artwork_description">Displayed artwork</string>
-    <string name="artwork_title">Android Garden</string>
-    <string name="artist_and_year">Android Artist (2026)</string>
+
+    <string name="sunset_title">Quiet Sunset</string>
+    <string name="sunset_artist">Nurdaulet (2026)</string>
+    <string name="sunset_description">Orange sunset behind the hills</string>
+
+    <string name="mountains_title">Mountain Morning</string>
+    <string name="mountains_artist">Nurdaulet (2026)</string>
+    <string name="mountains_description">Snowy mountains under a blue sky</string>
+
+    <string name="city_title">Night City</string>
+    <string name="city_artist">Nurdaulet (2026)</string>
+    <string name="city_description">City buildings illuminated at night</string>
 </resources>

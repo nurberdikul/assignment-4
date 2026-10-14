@@ -43,6 +43,8 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun ArtSpaceScreen(modifier: Modifier = Modifier) {
+    val artwork = artworks.first()
+
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -50,34 +52,40 @@ fun ArtSpaceScreen(modifier: Modifier = Modifier) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceEvenly
     ) {
-        ArtworkWall()
+        ArtworkWall(artwork = artwork)
 
-        ArtworkDescriptor()
+        ArtworkDescriptor(artwork = artwork)
     }
 }
 
 @Composable
-fun ArtworkWall(modifier: Modifier = Modifier) {
+fun ArtworkWall(
+    artwork: Artwork,
+    modifier: Modifier = Modifier
+) {
     Surface(
         modifier = modifier,
         shadowElevation = 8.dp,
         color = MaterialTheme.colorScheme.surface
     ) {
         Image(
-            painter = painterResource(R.drawable.ic_launcher_foreground),
+            painter = painterResource(artwork.imageRes),
             contentDescription = stringResource(
-                R.string.artwork_description
+                artwork.descriptionRes
             ),
             contentScale = ContentScale.Fit,
             modifier = Modifier
-                .padding(32.dp)
+                .padding(24.dp)
                 .size(280.dp)
         )
     }
 }
 
 @Composable
-fun ArtworkDescriptor(modifier: Modifier = Modifier) {
+fun ArtworkDescriptor(
+    artwork: Artwork,
+    modifier: Modifier = Modifier
+) {
     Surface(
         modifier = modifier,
         color = MaterialTheme.colorScheme.secondaryContainer
@@ -87,12 +95,12 @@ fun ArtworkDescriptor(modifier: Modifier = Modifier) {
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             Text(
-                text = stringResource(R.string.artwork_title),
+                text = stringResource(artwork.titleRes),
                 style = MaterialTheme.typography.headlineSmall
             )
 
             Text(
-                text = stringResource(R.string.artist_and_year),
+                text = stringResource(artwork.artistRes),
                 style = MaterialTheme.typography.bodyLarge
             )
         }
