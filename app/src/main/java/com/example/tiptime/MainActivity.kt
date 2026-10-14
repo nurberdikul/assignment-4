@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -14,6 +15,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -58,6 +60,7 @@ fun calculateTip(
 fun TipTimeScreen(modifier: Modifier = Modifier) {
     var amountInput by rememberSaveable { mutableStateOf("") }
     var tipInput by rememberSaveable { mutableStateOf("15") }
+    var roundUp by rememberSaveable { mutableStateOf(false) }
 
     val amount = amountInput.toDoubleOrNull() ?: 0.0
     val tipPercent = tipInput.toDoubleOrNull() ?: 0.0
@@ -88,6 +91,12 @@ fun TipTimeScreen(modifier: Modifier = Modifier) {
             modifier = Modifier.fillMaxWidth()
         )
 
+        RoundTheTipRow(
+            roundUp = roundUp,
+            onRoundUpChanged = { roundUp = it },
+            modifier = Modifier.fillMaxWidth()
+        )
+
         Text(
             text = stringResource(R.string.tip_amount, tip),
             style = MaterialTheme.typography.headlineMedium,
@@ -115,6 +124,28 @@ fun EditNumberField(
         singleLine = true,
         modifier = modifier
     )
+}
+
+@Composable
+fun RoundTheTipRow(
+    roundUp: Boolean,
+    onRoundUpChanged: (Boolean) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Row(
+        modifier = modifier,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            text = stringResource(R.string.round_up_tip),
+            modifier = Modifier.weight(1f)
+        )
+
+        Switch(
+            checked = roundUp,
+            onCheckedChange = onRoundUpChanged
+        )
+    }
 }
 
 @Preview(showBackground = true)
