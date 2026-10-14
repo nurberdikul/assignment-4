@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -56,6 +57,7 @@ fun calculateTip(
 @Composable
 fun TipTimeScreen(modifier: Modifier = Modifier) {
     var amountInput by rememberSaveable { mutableStateOf("") }
+    var tipInput by rememberSaveable { mutableStateOf("15") }
 
     val amount = amountInput.toDoubleOrNull() ?: 0.0
     val tip = calculateTip(amount)
@@ -72,8 +74,16 @@ fun TipTimeScreen(modifier: Modifier = Modifier) {
         )
 
         EditNumberField(
+            label = R.string.bill_amount,
             value = amountInput,
             onValueChange = { amountInput = it },
+            modifier = Modifier.fillMaxWidth()
+        )
+
+        EditNumberField(
+            label = R.string.tip_percentage,
+            value = tipInput,
+            onValueChange = { tipInput = it },
             modifier = Modifier.fillMaxWidth()
         )
 
@@ -87,6 +97,7 @@ fun TipTimeScreen(modifier: Modifier = Modifier) {
 
 @Composable
 fun EditNumberField(
+    @StringRes label: Int,
     value: String,
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier
@@ -95,7 +106,7 @@ fun EditNumberField(
         value = value,
         onValueChange = onValueChange,
         label = {
-            Text(stringResource(R.string.bill_amount))
+            Text(stringResource(label))
         },
         keyboardOptions = KeyboardOptions(
             keyboardType = KeyboardType.Number
