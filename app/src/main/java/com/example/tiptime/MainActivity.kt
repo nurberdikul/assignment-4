@@ -66,15 +66,9 @@ fun TipTimeScreen(modifier: Modifier = Modifier) {
             text = stringResource(R.string.calculate_tip)
         )
 
-        OutlinedTextField(
+        EditNumberField(
             value = amountInput,
             onValueChange = { amountInput = it },
-            label = {
-                Text(stringResource(R.string.bill_amount))
-            },
-            keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Number
-            ),
             modifier = Modifier.fillMaxWidth()
         )
 
@@ -82,6 +76,25 @@ fun TipTimeScreen(modifier: Modifier = Modifier) {
             text = stringResource(R.string.tip_amount, tip)
         )
     }
+}
+
+@Composable
+fun EditNumberField(
+    value: String,
+    onValueChange: (String) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    OutlinedTextField(
+        value = value,
+        onValueChange = onValueChange,
+        label = {
+            Text(stringResource(R.string.bill_amount))
+        },
+        keyboardOptions = KeyboardOptions(
+            keyboardType = KeyboardType.Number
+        ),
+        modifier = modifier
+    )
 }
 
 @Preview(showBackground = true)
