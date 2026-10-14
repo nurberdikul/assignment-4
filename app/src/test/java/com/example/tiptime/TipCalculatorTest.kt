@@ -44,4 +44,15 @@ class TipCalculatorTest {
 
         assertEquals("\$0.00", actualTip)
     }
+
+    @Test
+    fun calculateTip_defaultPercentage_returnsThirtyDollars() {
+        Locale.setDefault(Locale.US)
+
+        val actualTip = calculateTip(
+            amount = 200.0
+        )
+
+        assertEquals("\$30.00", actualTip)
+    }
 }
