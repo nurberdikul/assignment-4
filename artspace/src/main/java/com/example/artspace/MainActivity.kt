@@ -8,10 +8,13 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -59,16 +62,38 @@ fun ArtSpaceScreen(modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .fillMaxSize()
+            .verticalScroll(rememberScrollState())
             .padding(24.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.SpaceEvenly
+        verticalArrangement = Arrangement.spacedBy(24.dp)
     ) {
+        Text(
+            text = stringResource(R.string.gallery_title),
+            style = MaterialTheme.typography.headlineMedium
+        )
+
+        Text(
+            text = stringResource(
+                R.string.artwork_count,
+                currentArtworkIndex + 1,
+                artworks.size
+            ),
+            style = MaterialTheme.typography.labelLarge,
+            color = MaterialTheme.colorScheme.primary
+        )
+
         ArtworkWall(
-            artwork = currentArtwork
+            artwork = currentArtwork,
+            modifier = Modifier
+                .fillMaxWidth()
+                .widthIn(max = 480.dp)
         )
 
         ArtworkDescriptor(
-            artwork = currentArtwork
+            artwork = currentArtwork,
+            modifier = Modifier
+                .fillMaxWidth()
+                .widthIn(max = 480.dp)
         )
 
         ArtworkNavigation(
@@ -87,7 +112,10 @@ fun ArtSpaceScreen(modifier: Modifier = Modifier) {
                     } else {
                         0
                     }
-            }
+            },
+            modifier = Modifier
+                .fillMaxWidth()
+                .widthIn(max = 480.dp)
         )
     }
 }
@@ -109,8 +137,9 @@ fun ArtworkWall(
             ),
             contentScale = ContentScale.Fit,
             modifier = Modifier
-                .padding(24.dp)
-                .size(280.dp)
+                .padding(20.dp)
+                .fillMaxWidth()
+                .aspectRatio(4f / 3f)
         )
     }
 }
@@ -148,7 +177,7 @@ fun ArtworkNavigation(
     modifier: Modifier = Modifier
 ) {
     Row(
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier,
         horizontalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         Button(
@@ -174,6 +203,19 @@ fun ArtworkNavigation(
 @Preview(showBackground = true)
 @Composable
 fun ArtSpacePreview() {
+    TipTimeTheme {
+        ArtSpaceScreen()
+    }
+}
+
+@Preview(
+    name = "Landscape Art Space",
+    showBackground = true,
+    widthDp = 720,
+    heightDp = 400
+)
+@Composable
+fun ArtSpaceLandscapePreview() {
     TipTimeTheme {
         ArtSpaceScreen()
     }

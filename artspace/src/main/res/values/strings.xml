@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Art Space</string>
+    <string name="gallery_title">Art Space</string>
+    <string name="artwork_count">%1$d of %2$d</string>
 
     <string name="sunset_title">Quiet Sunset</string>
     <string name="sunset_artist">Nurdaulet (2026)</string>
