@@ -1,15 +1,28 @@
 package com.example.tiptime
 
+import org.junit.After
 import org.junit.Assert.assertEquals
+import org.junit.Before
 import org.junit.Test
 import java.util.Locale
 
 class TipCalculatorTest {
 
+    private lateinit var originalLocale: Locale
+
+    @Before
+    fun setUp() {
+        originalLocale = Locale.getDefault()
+        Locale.setDefault(Locale.US)
+    }
+
+    @After
+    fun tearDown() {
+        Locale.setDefault(originalLocale)
+    }
+
     @Test
     fun calculateTip_20PercentNoRoundUp_returnsTenDollars() {
-        Locale.setDefault(Locale.US)
-
         val actualTip = calculateTip(
             amount = 50.0,
             tipPercent = 20.0,
@@ -21,8 +34,6 @@ class TipCalculatorTest {
 
     @Test
     fun calculateTip_15Point5PercentRoundUp_returnsSixteenDollars() {
-        Locale.setDefault(Locale.US)
-
         val actualTip = calculateTip(
             amount = 100.0,
             tipPercent = 15.5,
@@ -34,8 +45,6 @@ class TipCalculatorTest {
 
     @Test
     fun calculateTip_zeroAmount_returnsZeroDollars() {
-        Locale.setDefault(Locale.US)
-
         val actualTip = calculateTip(
             amount = 0.0,
             tipPercent = 15.0,
@@ -47,8 +56,6 @@ class TipCalculatorTest {
 
     @Test
     fun calculateTip_defaultPercentage_returnsThirtyDollars() {
-        Locale.setDefault(Locale.US)
-
         val actualTip = calculateTip(
             amount = 200.0
         )
