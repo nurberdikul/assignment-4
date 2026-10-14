@@ -18,6 +18,10 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -46,7 +50,11 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun ArtSpaceScreen(modifier: Modifier = Modifier) {
-    val artwork = artworks.first()
+    var currentArtworkIndex by rememberSaveable {
+        mutableIntStateOf(0)
+    }
+
+    val currentArtwork = artworks[currentArtworkIndex]
 
     Column(
         modifier = modifier
@@ -55,13 +63,31 @@ fun ArtSpaceScreen(modifier: Modifier = Modifier) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceEvenly
     ) {
-        ArtworkWall(artwork = artwork)
+        ArtworkWall(
+            artwork = currentArtwork
+        )
 
-        ArtworkDescriptor(artwork = artwork)
+        ArtworkDescriptor(
+            artwork = currentArtwork
+        )
 
         ArtworkNavigation(
-            onPreviousClick = {},
-            onNextClick = {}
+            onPreviousClick = {
+                currentArtworkIndex =
+                    if (currentArtworkIndex > 0) {
+                        currentArtworkIndex - 1
+                    } else {
+                        artworks.lastIndex
+                    }
+            },
+            onNextClick = {
+                currentArtworkIndex =
+                    if (currentArtworkIndex < artworks.lastIndex) {
+                        currentArtworkIndex + 1
+                    } else {
+                        0
+                    }
+            }
         )
     }
 }
@@ -129,14 +155,18 @@ fun ArtworkNavigation(
             onClick = onPreviousClick,
             modifier = Modifier.weight(1f)
         ) {
-            Text(stringResource(R.string.previous))
+            Text(
+                text = stringResource(R.string.previous)
+            )
         }
 
         Button(
             onClick = onNextClick,
             modifier = Modifier.weight(1f)
         ) {
-            Text(stringResource(R.string.next))
+            Text(
+                text = stringResource(R.string.next)
+            )
         }
     }
 }
