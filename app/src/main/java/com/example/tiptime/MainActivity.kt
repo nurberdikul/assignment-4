@@ -15,6 +15,10 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AttachMoney
+import androidx.compose.material.icons.filled.Percent
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
@@ -28,6 +32,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
@@ -96,6 +101,10 @@ fun TipTimeScreen(modifier: Modifier = Modifier) {
             label = R.string.bill_amount,
             value = amountInput,
             onValueChange = { amountInput = it },
+            leadingIcon = Icons.Default.AttachMoney,
+            iconDescription = stringResource(
+                R.string.money_icon_description
+            ),
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Number,
                 imeAction = ImeAction.Next
@@ -112,6 +121,10 @@ fun TipTimeScreen(modifier: Modifier = Modifier) {
             label = R.string.tip_percentage,
             value = tipInput,
             onValueChange = { tipInput = it },
+            leadingIcon = Icons.Default.Percent,
+            iconDescription = stringResource(
+                R.string.percent_icon_description
+            ),
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Number,
                 imeAction = ImeAction.Done
@@ -143,6 +156,8 @@ fun EditNumberField(
     @StringRes label: Int,
     value: String,
     onValueChange: (String) -> Unit,
+    leadingIcon: ImageVector,
+    iconDescription: String,
     keyboardOptions: KeyboardOptions,
     keyboardActions: KeyboardActions,
     modifier: Modifier = Modifier
@@ -152,6 +167,12 @@ fun EditNumberField(
         onValueChange = onValueChange,
         label = {
             Text(stringResource(label))
+        },
+        leadingIcon = {
+            Icon(
+                imageVector = leadingIcon,
+                contentDescription = iconDescription
+            )
         },
         keyboardOptions = keyboardOptions,
         keyboardActions = keyboardActions,
