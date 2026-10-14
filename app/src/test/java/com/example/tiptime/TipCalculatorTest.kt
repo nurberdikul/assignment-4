@@ -31,4 +31,17 @@ class TipCalculatorTest {
 
         assertEquals("\$16.00", actualTip)
     }
+
+    @Test
+    fun calculateTip_zeroAmount_returnsZeroDollars() {
+        Locale.setDefault(Locale.US)
+
+        val actualTip = calculateTip(
+            amount = 0.0,
+            tipPercent = 15.0,
+            roundUp = false
+        )
+
+        assertEquals("\$0.00", actualTip)
+    }
 }
