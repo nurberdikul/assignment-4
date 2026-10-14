@@ -7,9 +7,12 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -55,6 +58,11 @@ fun ArtSpaceScreen(modifier: Modifier = Modifier) {
         ArtworkWall(artwork = artwork)
 
         ArtworkDescriptor(artwork = artwork)
+
+        ArtworkNavigation(
+            onPreviousClick = {},
+            onNextClick = {}
+        )
     }
 }
 
@@ -103,6 +111,32 @@ fun ArtworkDescriptor(
                 text = stringResource(artwork.artistRes),
                 style = MaterialTheme.typography.bodyLarge
             )
+        }
+    }
+}
+
+@Composable
+fun ArtworkNavigation(
+    onPreviousClick: () -> Unit,
+    onNextClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Row(
+        modifier = modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
+        Button(
+            onClick = onPreviousClick,
+            modifier = Modifier.weight(1f)
+        ) {
+            Text(stringResource(R.string.previous))
+        }
+
+        Button(
+            onClick = onNextClick,
+            modifier = Modifier.weight(1f)
+        ) {
+            Text(stringResource(R.string.next))
         }
     }
 }

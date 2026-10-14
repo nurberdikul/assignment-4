@@ -12,4 +12,7 @@
     <string name="city_title">Night City</string>
     <string name="city_artist">Nurdaulet (2026)</string>
     <string name="city_description">City buildings illuminated at night</string>
+
+    <string name="previous">Previous</string>
+    <string name="next">Next</string>
 </resources>
